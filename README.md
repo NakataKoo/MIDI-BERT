@@ -65,6 +65,12 @@ cd MIDI-BERT
 pip install -r requirements.txt
 ```
 
+研究室のA40サーバー（CUDA 12.1）では、以下でも上手くいった(torch=2.2.0, CUDA=12.1,)
+
+```
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+```
+
 ## Usage
 Please see `scripts` folder, which includes bash file for
 * prepare data
