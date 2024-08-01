@@ -1,17 +1,7 @@
 # MidiBERT-Piano
-<p align="center">
-    <img src="resources/fig/midibert.png" width="800"/>
-    <br>
-    <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/wazenmai/MIDI-BERT?logoColor=blue" /></a>
-    <a href="http://arxiv.org/licenses/nonexclusive-distrib/1.0/"><img alt="ARXIV LICENSE" src="https://img.shields.io/badge/License-arxiv-lightgrey" /> </a>
-    <a href=""><img alt="STAR" src="https://img.shields.io/github/stars/wazenmai/MIDI-BERT"/> </a>
-    <a href="https://github.com/wazenmai/MIDI-BERT/issues"><img alt="ISSUE" src="https://img.shields.io/github/issues/wazenmai/MIDI-BERT" /></a>
-
-</p>
-Authors: <a href="https://sophia1488.github.io">Yi-Hui (Sophia) Chou</a>, <a href="https://github.com/wazenmai">I-Chun (Bronwin) Chen</a>
 
 ## Introduction
-This is the official repository for the paper, [MidiBERT-Piano: Large-scale Pre-training for Symbolic Music Understanding](https://arxiv.org/pdf/2107.05223.pdf).
+This is not official repository for the paper, [MidiBERT-Piano: Large-scale Pre-training for Symbolic Music Understanding](https://arxiv.org/pdf/2107.05223.pdf).
 
 With this repository, you can
 * pre-train a MidiBERT-Piano with your customized pre-trained dataset
