@@ -25,16 +25,85 @@ pip install -r requirements.txt
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 ```
 
-## Usage
-Please see `scripts` folder, which includes bash file for
-* prepare data
-* pretrain
-* finetune
-* evaluation
-* melody extraction
+## Customize your own pre-training dataset 'lmd_aligned'
 
-You may need to change the folder/file name or any config settings you prefer.
+1. data_creation/prepare_dataのmain.py, model.py, utils.pyのimportにおいて、data_creation.prepare_data.の部分を削除
+2. ```!wget http://hog.ee.columbia.edu/craffel/lmd/lmd_aligned.tar.gz```を実行
+3. ```!tar -zxvf lmd_aligned.tar.gz```を実行し解凍
+4. 以下でdata_creation/prepare_data/dict/CP.pklの中身を表示
+```python
+import pickle
 
+# CP.pklファイルのパス
+file_path = 'data_creation/prepare_data/dict/CP.pkl'
+
+# ファイルを読み込み
+with open(file_path, 'rb') as f:
+    cp_dict = pickle.load(f)
+
+# データの表示
+print(cp_dict)
+```
+5. 以下でCP.pklにおいて、Pitchの範囲を0~127へ拡大
+```python
+import pickle
+
+# 既存の辞書を読み込み
+dict_path = 'data_creation/prepare_data/dict/CP.pkl'
+with open(dict_path, 'rb') as f:
+    event2word, word2event = pickle.load(f)
+
+# ピッチの範囲
+min_pitch = 0
+max_pitch = 127
+
+# ピッチのエントリを追加
+for pitch in range(min_pitch, max_pitch + 1):
+    pitch_key = f'Pitch {pitch}'
+    if pitch_key not in event2word['Pitch']:
+        event2word['Pitch'][pitch_key] = -1  # 一時的に-1を設定
+
+# ピッチのキーを昇順にソートして再割り当て
+special_keys = {'Pitch <PAD>', 'Pitch <MASK>'}
+sorted_pitch_keys = sorted(
+    [k for k in event2word['Pitch'].keys() if k not in special_keys],
+    key=lambda x: int(x.split()[1])
+)
+
+# 特別なキーは元の位置に戻す
+for new_index, pitch_key in enumerate(sorted_pitch_keys):
+    event2word['Pitch'][pitch_key] = new_index
+    word2event['Pitch'][new_index] = pitch_key
+
+# 特別なキーを追加
+current_index = len(sorted_pitch_keys)
+for special_key in special_keys:
+    event2word['Pitch'][special_key] = current_index
+    word2event['Pitch'][current_index] = special_key
+    current_index += 1
+
+# 更新された辞書を保存
+with open(dict_path, 'wb') as f:
+    pickle.dump((event2word, word2event), f)
+
+print("CP.pklを更新しました。")
+```
+6. utils.pyの29行目以降を以下の様に変更
+```python
+try:
+   midi_obj = miditoolkit.midi.parser.MidiFile(file_path)
+except OSError as e:
+   print(f"Error reading {file_path}: {e}")
+   return [], []  # 空のリストを返してエラーを処理
+```
+8. 以下でMIDI-BERT入力用データの前処理実行
+```
+input_dir="lmd_aligned"
+!export PYTHONPATH='.'
+
+# custom directory
+!python3 data_creation/prepare_data/main.py --input_dir=$input_dir --name="lmd_aligned"
+```
 
 ## Repo Structure
 ```
