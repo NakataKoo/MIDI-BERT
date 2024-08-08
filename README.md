@@ -1,5 +1,8 @@
 # MidiBERT-Piano
 
+
+事前学習済みモデルの重み＋データセット：https://huggingface.co/KooNakata/MIDI-BERT
+
 ## Introduction
 This is not official repository for the paper, [MidiBERT-Piano: Large-scale Pre-training for Symbolic Music Understanding](https://arxiv.org/pdf/2107.05223.pdf).
 
