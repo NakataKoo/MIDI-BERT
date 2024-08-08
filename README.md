@@ -11,7 +11,7 @@ With this repository, you can
 All the datasets employed in this work are publicly available.
 
 ## Installation
-* Python3
+* Python3.9
 * Install generally used packages for MidiBERT-Piano:
 ```python
 git clone https://github.com/wazenmai/MIDI-BERT.git
@@ -24,6 +24,29 @@ pip install -r requirements.txt
 ```
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 ```
+
+### Python3.10の場合
+requirements.txtを以下の様に変更
+```
+numpy>=1.13.3
+matplotlib>=3.3.3
+mido==1.2.10
+#torch>=1.3.1
+chorder==0.1.2
+#miditoolkit==0.1.14
+#scikit_learn==0.24.2
+#torchaudio==0.9.0
+transformers==4.8.2
+SoundFile
+tqdm
+pypianoroll
+```
+次に、以下を実行（CUDA 12.1の場合）
+```
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+```
+
+miditoolkitやscikit_learnはバージョン指定せず、個別にインストールするのでも良さそう
 
 ## Customize your own pre-training dataset 'lmd_aligned'
 
