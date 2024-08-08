@@ -10,52 +10,6 @@ With this repository, you can
 
 All the datasets employed in this work are publicly available.
 
-
-## Quick Start
-### For programmers
-If you'd like to reproduce the results (MidiBERT) shown in the paper, 
-![image-20210710185007453](resources/fig/result.png)
-
-1. Please download the [checkpoints](https://drive.google.com/drive/folders/1ceIfC1UugZQHPgpEEMkdAF0VhZ1EeLl3?usp=sharing), and rename files like the following
-
-	(Note: we only provide checkpoints for models in CP representations)
-```
-result/
-└── finetune/
-	└── melody_default/
-		└── model_best.ckpt
-	└── velocity_default/
-		└── model_best.ckpt
-	└── composer_default/
-		└── model_best.ckpt
-	└── emotion_default/
-		└── model_best.ckpt
-```
-
-2. Run `./scripts/eval.sh`
-
-	Or refer to Readme in MidiBERT folder for more details. 
- 
-	*No gpu is needed for evaluation*
-
-### For musicians who want to test melody extraction
-Edit `scripts/melody_extraction.sh` and modify `song_path` to your midi path.
-The midi file to predicted melody will be saved at the root folder.
-```
-./scripts/melody_extraction.sh
-```
-#### Windows Users
-```
-# modify this line (export PYTHONPATH='.') to the following
-set PYTHONPATH='.'
-# print the environment variable to make sure it's working
-echo %PYTHONPATH%
-```
-I've experimented this on Adele hello (piano cover), and I think it's good.  
-But for non-pop music like Mozart sonata, I feel like the model is pretty confused.  This is expected.  As the training data is POP909 Dataset, the model knows very little about classical music.  
-
-Side note: I try to make it more friendly for non-programmers.  Feel free to open an issue if there's any problem.
-
 ## Installation
 * Python3
 * Install generally used packages for MidiBERT-Piano:
@@ -118,14 +72,4 @@ Note that Baseline (LSTM) and code in remi versions are removed for cleaness.  B
 
 ## Citation
 
-If you find this useful, please cite our paper.
-
-```
-@article{midibertpiano,
-  title={{MidiBERT-Piano}: Large-scale Pre-training for Symbolic Music Understanding},
-  author={Yi-Hui Chou and I-Chun Chen and Chin-Jui Chang and Joann Ching, and Yi-Hsuan Yang},
-  journal={arXiv preprint arXiv:2107.05223},
-  year={2021}
-}
-```
-
+[Midi-BERT Official repo](https://github.com/wazenmai/MIDI-BERT/tree/CP).
