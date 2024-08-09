@@ -120,6 +120,7 @@ def main():
     """
     elif args.input_dir == "lmd_aligned":
         files = glob.glob('lmd_aligned/**/*.mid', recursive=True)
+        # files = ["path_to_midi0", "path_to_midi1","path_to_midi2", ...]となる
     """
     
     elif args.input_file:
