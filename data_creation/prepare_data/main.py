@@ -5,7 +5,7 @@ import pickle
 import pathlib
 import argparse
 import numpy as np
-from data_creation.prepare_data.model import *
+from data_creation.prepare_data.model import *  # from model import *
 
 
 def get_args():
@@ -116,7 +116,12 @@ def main():
 
     elif args.input_dir:
         files = glob.glob(f'{args.input_dir}/*.mid')
-
+    
+    """
+    elif args.input_dir == "lmd_aligned":
+        files = glob.glob('lmd_aligned/**/*.mid', recursive=True)
+    """
+    
     elif args.input_file:
         files = [args.input_file]
 
