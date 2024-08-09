@@ -43,7 +43,7 @@ def get_args():
 
     return args
 
-
+# 主な処理
 def extract(files, args, model, mode=''):
     '''
     files: list of midi path
@@ -55,6 +55,7 @@ def extract(files, args, model, mode=''):
 
     print(f'Number of {mode} files: {len(files)}') 
 
+    # model.pyのprepare_dataメソッドを使用し、segments(前処理されたすべてのデータ（トークン列）のリスト)などを得る
     segments, ans = model.prepare_data(files, args.task, int(args.max_len))
 
     dataset = args.dataset if args.dataset != 'pianist8' else 'composer'
@@ -69,6 +70,7 @@ def extract(files, args, model, mode=''):
     elif dataset == 'pop1k7' or dataset == 'ASAP':
         output_file = os.path.join(args.output_dir, f'{dataset}.npy')
 
+    # output_fileというパス・ファイル名で、「segments」の内容をnpyで保存
     np.save(output_file, segments)
     print(f'Data shape: {segments.shape}, saved at {output_file}')
 
