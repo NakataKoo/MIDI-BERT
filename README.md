@@ -124,10 +124,10 @@ except OSError as e:
 ```
 
 7. main.pyの117行目あたりを、以下に変更
-'''python
+```python
 elif args.input_dir == "lmd_aligned":
     files = glob.glob('lmd_aligned/**/*.mid', recursive=True)
-'''
+```
 
 9. 以下でMIDI-BERT入力用データの前処理実行
 ```
