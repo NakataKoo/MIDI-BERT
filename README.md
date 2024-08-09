@@ -170,6 +170,8 @@ directory = '/content/MIDI-BERT/lmd_aligned'
 remove_empty_dirs(directory)
 ```
 
+以下で、1,7077となることを確認
+```find lmd_aligned -type d -links 2 | wc -l```
 
 9. 以下でMIDI-BERT入力用データの前処理実行
 ```
