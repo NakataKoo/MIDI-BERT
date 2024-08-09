@@ -62,21 +62,23 @@ class CP(object):
                 continue
             # events to words
             words, ys = [], []
-            for note_tuple in events:
+            for note_tuple in events: # note_tupleは複数のイベントを含むタプルで、音符の高さ、長さ、テンポなどの情報が含まれる
                 nts, to_class = [], -1
-                for e in note_tuple:
+                for e in note_tuple: # 各イベントeのname（例えば、PitchやDuration）とvalue（例えば、60や120など）を組み合わせてトークンに変換
                     e_text = '{} {}'.format(e.name, e.value)
-                    nts.append(self.event2word[e.name][e_text])
+                    nts.append(self.event2word[e.name][e_text]) # self.event2word[e.name][e_text]で、この文字列をトークン化し、対応する整数IDをntsに追加
                     if e.name == 'Pitch':
                         to_class = e.Type
-                words.append(nts)
+                words.append(nts) # 生成されたトークンのリストntsをwordsリストに追加
                 if task == 'melody' or task == 'velocity':
                     ys.append(to_class+1)
+            # wordsリストに、MIDIファイル全体のトークン化されたデータが格納されている
 
             # slice to chunks so that max length = max_len (default: 512)
             slice_words, slice_ys = [], []
             for i in range(0, len(words), max_len):
-                slice_words.append(words[i:i+max_len])
+                slice_words.append(words[i:i+max_len]) # wordsリストの中から、i番目からi+max_len番目までのデータをスライスし、slice_wordsに追加
+                
                 if task == "composer":
                     name = path.split('/')[-2]
                     slice_ys.append(Composer[name])
