@@ -122,7 +122,14 @@ except OSError as e:
    print(f"Error reading {file_path}: {e}")
    return [], []  # 空のリストを返してエラーを処理
 ```
-8. 以下でMIDI-BERT入力用データの前処理実行
+
+7. main.pyの117行目あたりを、以下に変更
+'''python
+elif args.input_dir == "lmd_aligned":
+    files = glob.glob('lmd_aligned/**/*.mid', recursive=True)
+'''
+
+9. 以下でMIDI-BERT入力用データの前処理実行
 ```
 input_dir="lmd_aligned"
 !export PYTHONPATH='.'
