@@ -110,4 +110,4 @@ class CP(object):
         all_words = np.array(all_words)
         all_ys = np.array(all_ys)
 
-        return all_words, all_ys
+        return all_words, all_ys, midi_ids
