@@ -56,7 +56,7 @@ def extract(files, args, model, mode=''):
     print(f'Number of {mode} files: {len(files)}') 
 
     # model.pyのprepare_dataメソッドを使用し、segments(前処理されたすべてのデータ（トークン列）のリスト)などを得る
-    segments, ans, midi_ids = model.prepare_data(files, args.task, int(args.max_len))
+    segments, ans, midi_ids, not_midis = model.prepare_data(files, args.task, int(args.max_len))
 
     dataset = args.dataset if args.dataset != 'pianist8' else 'composer'
 
@@ -77,6 +77,10 @@ def extract(files, args, model, mode=''):
     # segmentsの各要素リストに対応するMIDIのID情報をnpyで保存
     np.save("midi_ids.npy", midi_ids)
     print(f'midi_ids shape: {midi_ids.shape}')
+
+    # 空のMIDIファイルをnpyで保存
+    np.save("not_midis.npy", not_midis)
+    print(f'not_midis shape: {not_midis.shape}')
     
     if args.task != '':
         if args.task == 'melody' or args.task == 'velocity':
