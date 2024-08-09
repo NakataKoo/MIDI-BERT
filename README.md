@@ -129,6 +129,48 @@ elif args.input_dir == "lmd_aligned":
     files = glob.glob('lmd_aligned/**/*.mid', recursive=True)
 ```
 
+8. ルードディレクトリにて以下を実行し、データセットに存在しないファイル＋サブディレクトリをlmd_alignedフォルダから削除
+```python
+import pandas as pd
+import os
+import shutil
+
+# CSVファイルを読み込む
+df = pd.read_csv('/content/midi_mp3_caption_clean.csv')
+
+# 「lmd_aligned」列に存在するフォルダ名のリストを取得
+existing_folders = df['lmd_aligned'].tolist()
+
+# ディレクトリAのパスを指定
+directory_a = 'lmd_aligned/'
+
+# ディレクトリA内の一番下の階層のみを走査
+for root, dirs, files in os.walk(directory_a):
+    if not dirs:  # サブディレクトリがない、つまり一番下の階層である場合
+        if root not in existing_folders:
+            # 一番下のフォルダが「lmd_aligned」列に存在しない場合、そのフォルダを削除
+            shutil.rmtree(root)
+            print(f"Deleted folder: {root}")
+
+def remove_empty_dirs(directory):
+    # ディレクトリ内を再帰的に走査
+    for root, dirs, files in os.walk(directory, topdown=False):
+        for dir_name in dirs:
+            dir_path = os.path.join(root, dir_name)
+            # ディレクトリが空かどうかを確認
+            if not os.listdir(dir_path):
+                # 空のディレクトリを削除
+                os.rmdir(dir_path)
+                print(f"Deleted empty directory: {dir_path}")
+
+# 対象のディレクトリを指定
+directory = '/content/MIDI-BERT/lmd_aligned'
+
+# 空のサブディレクトリを削除
+remove_empty_dirs(directory)
+```
+
+
 9. 以下でMIDI-BERT入力用データの前処理実行
 ```
 input_dir="lmd_aligned"
