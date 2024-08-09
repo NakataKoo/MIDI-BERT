@@ -75,7 +75,8 @@ def extract(files, args, model, mode=''):
     print(f'Data shape: {segments.shape}, saved at {output_file}')
 
     # segmentsの各要素リストに対応するMIDIのID情報をnpyで保存
-    np.save("midi_ids", midi_ids)
+    np.save("midi_ids.npy", midi_ids)
+    print(f'midi_ids shape: {midi_ids.shape}')
     
     if args.task != '':
         if args.task == 'melody' or args.task == 'velocity':
