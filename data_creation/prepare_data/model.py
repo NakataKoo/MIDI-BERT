@@ -52,8 +52,8 @@ class CP(object):
         return data
 
     def prepare_data(self, midi_paths, task, max_len):
-        all_words, all_ys = [], []
-
+        all_words, all_ys, midi_ids = [], [], []
+        id = 0
         for path in tqdm(midi_paths):
             # extract events
             events = self.extract_events(path, task)
@@ -61,7 +61,7 @@ class CP(object):
                 print(f'skip {path} because it is empty')
                 continue
             # events to words
-            words, ys = [], []
+            words, ys, midi_id = [], [], []
             for note_tuple in events: # note_tupleは複数のイベントを含むタプルで、音符の高さ、長さ、テンポなどの情報が含まれる
                 nts, to_class = [], -1
                 for e in note_tuple: # 各イベントeのname（例えば、PitchやDuration）とvalue（例えば、60や120など）を組み合わせてトークンに変換
@@ -99,6 +99,10 @@ class CP(object):
 
             if (task == 'melody' or task == 'velocity') and len(slice_ys[-1]) < max_len:
                 slice_ys[-1] = self.padding(slice_ys[-1], max_len, ans=True)
+
+            midi_id = [id]*len(slice_words)
+            midi_ids = midi_ids + midi_id
+            id += 1
             
             all_words = all_words + slice_words
             all_ys = all_ys + slice_ys
