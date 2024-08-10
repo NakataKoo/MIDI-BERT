@@ -123,7 +123,7 @@ except OSError as e:
    return [], []  # 空のリストを返してエラーを処理
 ```
 
-7. main.pyの117行目あたりを、以下に変更
+7. data_creation/prepare_data/main.pyの120行目あたりを、以下に変更
 ```python
 elif args.input_dir == "lmd_aligned":
     files = glob.glob('lmd_aligned/**/*.mid', recursive=True)
@@ -170,7 +170,7 @@ directory = '/content/MIDI-BERT/lmd_aligned'
 remove_empty_dirs(directory)
 ```
 
-以下で、1,7077となることを確認
+以下で、17,077となることを確認
 ```find lmd_aligned -type d -links 2 | wc -l```
 
 9. 以下でMIDI-BERT入力用データの前処理実行
