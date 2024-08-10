@@ -5,7 +5,7 @@ import pickle
 import pathlib
 import argparse
 import numpy as np
-from data_creation.prepare_data.model import *  # from model import *
+from model import * # from data_creation.prepare_data.model import * 
 
 
 def get_args():
