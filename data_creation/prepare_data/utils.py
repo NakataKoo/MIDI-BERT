@@ -27,7 +27,12 @@ class Item(object):
 
 # read notes and tempo changes from midi (assume there is only one track)
 def read_items(file_path):
-    midi_obj = miditoolkit.midi.parser.MidiFile(file_path)
+    try:
+        midi_obj = miditoolkit.midi.parser.MidiFile(file_path)
+    except OSError as e:
+        print(f"Error reading {file_path}: {e}")
+        return [], []  # 空のリストを返してエラーを処理
+
     # note
     note_items = []
     num_of_instr = len(midi_obj.instruments) 
