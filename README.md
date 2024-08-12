@@ -175,6 +175,16 @@ remove_empty_dirs(directory)
 以下で、17,077となることを確認
 ```find lmd_aligned -type d -links 2 | wc -l```
 
+以下で、63,330となることを確認
+```!find lmd_aligned -type f | wc -l```
+
+以下で、63,330となることを確認
+```python
+import glob
+files = glob.glob('lmd_aligned/**/*.mid', recursive=True)
+len(files)
+```
+
 9. 以下でMIDI-BERT入力用データの前処理実行
 ```
 input_dir="lmd_aligned"
