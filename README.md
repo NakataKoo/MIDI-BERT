@@ -234,7 +234,81 @@ directory = 'lmd_aligned'
 remove_empty_dirs(directory)
 ```
 
-10. 以下でMIDI-BERT入力用データの前処理実行
+10. not_filesという列をデータセットに追加し、上記で削除したフォルダを記す
+```python
+import pandas as pd
+
+# CSVファイルをデータフレームに読み込む
+df = pd.read_csv('/content/midi_mp3_caption_clean.csv')
+
+# "not_files" 列を追加し、初期値を0に設定
+df['not_files'] = 0
+
+# 対象の文字列リストを設定
+target_strings = [
+    "lmd_aligned/S/E/K/TRSEKRS12903CBB4FF",
+    "lmd_aligned/S/B/C/TRSBCXR128F92E1B1B",
+    "lmd_aligned/K/Z/Q/TRKZQMX128F14774F1",
+    "lmd_aligned/K/Q/Z/TRKQZNL128F92E11A6",
+    "lmd_aligned/I/P/N/TRIPNEP128E07877F5",
+    "lmd_aligned/I/Q/O/TRIQOWE12903CD02A3",
+    "lmd_aligned/L/A/R/TRLARFV128E0793EBF",
+    "lmd_aligned/L/M/Q/TRLMQTE12903CC5B9A",
+    "lmd_aligned/L/V/T/TRLVTWI128F92EFEA7",
+    "lmd_aligned/L/N/O/TRLNOGT128F42971D9",
+    "lmd_aligned/L/N/Q/TRLNQGI128F92D5D37",
+    "lmd_aligned/R/Y/G/TRRYGTP12903D13BD7",
+    "lmd_aligned/R/B/P/TRRBPNS128F9316BB4",
+    "lmd_aligned/R/N/C/TRRNCJG12903CFD79A",
+    "lmd_aligned/J/T/L/TRJTLSC128F92D28A2",
+    "lmd_aligned/J/T/G/TRJTGYX128F4297576",
+    "lmd_aligned/J/T/X/TRJTXZB128F42A1018",
+    "lmd_aligned/W/C/Q/TRWCQTZ12903CC5BA1",
+    "lmd_aligned/W/M/E/TRWMEMW12903CA86D0",
+    "lmd_aligned/W/X/W/TRWXWNN128F93112A6",
+    "lmd_aligned/W/Q/O/TRWQORX128F42A8E5F",
+    "lmd_aligned/Z/N/T/TRZNTLA128EF363651",
+    "lmd_aligned/G/J/M/TRGJMRT128F4263548",
+    "lmd_aligned/G/Y/W/TRGYWIU128F1468031",
+    "lmd_aligned/G/Z/Y/TRGZYUD128F9316BBA",
+    "lmd_aligned/D/T/D/TRDTDAT128F426AB1C",
+    "lmd_aligned/D/T/Q/TRDTQRI128F42971DB",
+    "lmd_aligned/D/T/E/TRDTEGG128F1480E89",
+    "lmd_aligned/P/S/K/TRPSKFO12903CA1410",
+    "lmd_aligned/P/U/O/TRPUOVN128F92EE1AE",
+    "lmd_aligned/O/X/M/TROXMLO128F429757D",
+    "lmd_aligned/M/W/E/TRMWEOC128F9322C97",
+    "lmd_aligned/M/F/V/TRMFVIY128F9316BB5",
+    "lmd_aligned/X/J/B/TRXJBOT128F1496AD4",
+    "lmd_aligned/X/O/F/TRXOFFX128F42962D7",
+    "lmd_aligned/T/Q/D/TRTQDGL128E0780C94",
+    "lmd_aligned/F/I/V/TRFIVUI128F4297586",
+    "lmd_aligned/F/Y/B/TRFYBKR128F4297574",
+    "lmd_aligned/F/Z/Q/TRFZQXL128F930924A",
+    "lmd_aligned/Q/D/F/TRQDFFS128EF363246",
+    "lmd_aligned/Q/T/T/TRQTTJS128F9316BAB",
+    "lmd_aligned/Q/E/N/TRQENKM128F42A1020",
+    "lmd_aligned/V/P/Z/TRVPZQL12903CA4624",
+    "lmd_aligned/U/C/G/TRUCGYQ128F9343164",
+    "lmd_aligned/U/C/H/TRUCHHA128EF3435EA",
+    "lmd_aligned/U/E/U/TRUEUDK128E0782EA2",
+    "lmd_aligned/H/D/G/TRHDGDU128F92EA54D",
+    "lmd_aligned/B/M/F/TRBMFRN128F92DD39F",
+    "lmd_aligned/B/Q/U/TRBQUBO128E0790182",
+    "lmd_aligned/N/I/M/TRNIMOG128F4297583",
+    "lmd_aligned/N/I/V/TRNIVDJ128F42AAC14",
+    "lmd_aligned/N/G/S/TRNGSHX128F42365CE",
+    "lmd_aligned/N/X/H/TRNXHWU128F931716F",
+    "lmd_aligned/N/E/T/TRNETGG128E079264C"
+]
+
+# "lmd_aligned"列の値がtarget_stringsに含まれる場合、"not_files"列の値を1に設定
+df.loc[df['lmd_aligned'].isin(target_strings), 'not_files'] = 1
+
+# import ace_tools as tools; tools.display_dataframe_to_user(name="Updated DataFrame", dataframe=df)
+```
+
+11. 以下でMIDI-BERT入力用データの前処理実行
 ```
 input_dir="lmd_aligned"
 !export PYTHONPATH='.'
