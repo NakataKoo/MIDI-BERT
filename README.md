@@ -151,7 +151,9 @@ for root, dirs, files in os.walk(directory_a):
             # 一番下のフォルダが「lmd_aligned」列に存在しない場合、そのフォルダを削除
             shutil.rmtree(root)
             print(f"Deleted folder: {root}")
+```
 
+```python
 def remove_empty_dirs(directory):
     # ディレクトリ内を再帰的に走査
     for root, dirs, files in os.walk(directory, topdown=False):
