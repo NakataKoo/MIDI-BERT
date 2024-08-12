@@ -136,7 +136,7 @@ import os
 import shutil
 
 # CSVファイルを読み込む
-df = pd.read_csv('/content/midi_mp3_caption_clean.csv')
+df = pd.read_csv('midi_mp3_caption_clean.csv')
 
 # 「lmd_aligned」列に存在するフォルダ名のリストを取得
 existing_folders = df['lmd_aligned'].tolist()
@@ -164,7 +164,7 @@ def remove_empty_dirs(directory):
                 print(f"Deleted empty directory: {dir_path}")
 
 # 対象のディレクトリを指定
-directory = '/content/MIDI-BERT/lmd_aligned'
+directory = 'lmd_aligned'
 
 # 空のサブディレクトリを削除
 remove_empty_dirs(directory)
